@@ -36,7 +36,7 @@ class Video(db.Model):
     #激活状态
     video_ative = db.Column(db.Boolean,default=True)
     #创建于用户的关联
-    users = db.relationship('User',backref='videos',secondary=like)
+    # users = db.relationship('User',backref='videos',secondary=like)
     #创建video与tag的关联
     tags = db.relationship('Tag',backref='tags',secondary=video_tag)
 
@@ -70,8 +70,8 @@ class Tag(db.Model):
     #封面
     tag_img = db.Column(db.Integer)
     #创建video的关联
-    videos = db.relationship('Video',backref='tags',secondary=video_tag)
-
+    # videos = db.relationship('Video',backref='tags',secondary=video_tag)
+    
 class Ad(db.Model):
     #广告ID，唯一主键
     ad_id = db.Column(db.Integer, primary_key=True)
