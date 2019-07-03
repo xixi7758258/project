@@ -1,10 +1,12 @@
 from flask import Flask
 
 
-
 def create_app(config_object):
     app = Flask(__name__)
     app.config.from_object(config_object)
+
+    from flask_cors import CORS
+    CORS(app, supports_credentials=True, resources=r"/*")
 
     from app.modle.modle import db
     db.init_app(app)
