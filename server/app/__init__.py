@@ -1,9 +1,13 @@
 from flask import Flask
 
 
+
 def create_app(config_object):
     app = Flask(__name__)
     app.config.from_object(config_object)
+
+    from app.modle.modle import db
+    db.init_app(app)
 
     from app.views.ad import ad_blueprint
     from app.views.level import level_blueprint
