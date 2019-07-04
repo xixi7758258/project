@@ -26,8 +26,8 @@ def like():
     elif request.method == "POST":
         user_id = request.form["user_id"]
         video_id = request.form["video_id"]
-        if not int(user_id):
-            return jsonify({"code":500, "message": "user_id is empty"})
+        if not user_id or not video_id:
+            return jsonify({"code":500, "message": "user_id or video_id is empty"})
         
         user = User.query.filter(User.user_id=user_id).first()
         video = Video.query.filter(Video.video_id=video.id).first()
@@ -52,5 +52,6 @@ def like():
         db.session.commit()
 
         return jsonify({"code":200, "message": "ok"})
+    
     else:
         return  jsonify({"code": 500, "message": "method is not support"})
