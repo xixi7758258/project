@@ -27,6 +27,7 @@ class Video(db.Model):
     video_desc = db.Column(db.String(128))
     #地址
     video_addr = db.Column(db.String(128))
+    video_fid = db.Column(db.String(24))
     #喜欢
     video_like = db.Column(db.Integer)
     #视频时长

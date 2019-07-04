@@ -11,6 +11,18 @@ FLIE_MASTER_ADDR = "space.heyu.work"
 FLIE_MASTER_POER = "8000"
 FLIE_MASTER_URL = FLIE_MASTER_ADDR + ":" + FLIE_MASTER_POER
 
+FLIE_SROTAGE_URL = {
+    "8001":{
+        "URL": "space.heyu.work"
+    },
+    "8002":{
+        "URL": "space.heyu.work"
+    },
+    "8003":{
+        "URL": "space.heyu.work"
+    }
+}
+
 class Config(object):
     DEBUG = True
     SECRET_KEY = "Flask"
@@ -18,3 +30,4 @@ class Config(object):
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     FLIE_MASTER_URL = FLIE_MASTER_URL
+    FLIE_SROTAGE_URL = FLIE_SROTAGE_URL
