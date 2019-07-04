@@ -1,5 +1,5 @@
 from flask import Blueprint,request,jsonify
-from app.modle.modle import db,User,Video,
+from app.modle.modle import db,User,Video
 
 user_blueprint = Blueprint("user", __name__)
 
@@ -12,7 +12,7 @@ def like():
         if not user_id:
             return jsonify({"code":500, "message": "user_id is empty"})
         
-        user = User.query.filter(User.user_id=user_id).first()
+        user = User.query.filter_by(user_id=user_id).first()
         vs = user.video
         likes = []
 
@@ -29,8 +29,8 @@ def like():
         if not user_id or not video_id:
             return jsonify({"code":500, "message": "user_id or video_id is empty"})
         
-        user = User.query.filter(User.user_id=user_id).first()
-        video = Video.query.filter(Video.video_id=video.id).first()
+        user = User.query.filter_by(user_id=user_id).first()
+        video = Video.query.filter_by(video_id=video.id).first()
         user.video.append(video)
         
         db.session.add(user)
@@ -45,8 +45,8 @@ def like():
         if not user_id or not video_id:
             return jsonify({"code":500, "message": "user_id or video_id is empty"})
         
-        user = User.query.filter(User.user_id=user_id).first()
-        video = Video.query.filter(Video.video_id=video.id).first()
+        user = User.query.filter_by(user_id=user_id).first()
+        video = Video.query.filter_by(video_id=video.id).first()
         user.video.remove(video)
 
         db.session.commit()
