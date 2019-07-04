@@ -18,7 +18,7 @@ video_tag = db.Table(
 
 class Video(db.Model):
     #视频ID，唯一主键
-    video_id = db.Column(db.Integer, primary_key=True)
+    video_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     #名称
     video_name = db.Column(db.String(128))
     #封面图片地址
@@ -45,7 +45,7 @@ class Video(db.Model):
 
 class User(db.Model):
     #用户ID，唯一主键
-    user_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     #姓名
     user_name = db.Column(db.String(20))
     #等级/类型
@@ -63,7 +63,7 @@ class User(db.Model):
 
 class Tag(db.Model):
     #标签名，唯一主键
-    tag_id = db.Column(db.Integer, primary_key=True)
+    tag_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     #名字
     tag_name = db.Column(db.String(20))
     #喜欢
@@ -75,7 +75,7 @@ class Tag(db.Model):
     
 class Ad(db.Model):
     #广告ID，唯一主键
-    ad_id = db.Column(db.Integer, primary_key=True)
+    ad_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     #广告图
     ad_img = db.Column(db.String(128))
     #广告链接
@@ -87,7 +87,7 @@ class Ad(db.Model):
 
 class Order(db.Model):
     #订单ID，唯一主键
-    order_id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     #外键用户ID
     user = db.Column(db.Integer,db.ForeignKey('user.user_id'))
     #外键等级
@@ -109,5 +109,6 @@ class Level(db.Model):
     #价格
     level_price = db.Column(db.Integer)
     #有效时间
-    level_time = db.Column(db.DateTime)
-
+    level_time = db.Column(db.Integer)
+    #激活
+    level_active = db.Column(db.Boolean,default=True)
