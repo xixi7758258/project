@@ -85,7 +85,7 @@ def user():
     
     elif request.method == "POST":
         user = User()
-        user.user_name = uuid.uuid1()
+        user.user_name = str(uuid.uuid1())
         
         db.session.add(user)
         db.session.commit()
