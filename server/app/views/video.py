@@ -130,7 +130,18 @@ def tag():
 @video_blueprint.route("/search", methods=["GET", "POST", "PUT", "DELETE"])
 def search():
     if request.method == "GET":
-        pass
+        tag_id = request.args.get("tag_id")
+        if not tag_id:
+            return jsonify({"code":500, "message": "tagid empty"})
+        tag = Tag.query.filter_by(tag_id=tag_id).first()
+
+        vs = []
+        for v in tag.videos:
+            addr = Config.FLIE_SROTAGE_URL[v.video_addr]["URL"] + ":" + v.video_addr + "/" +v.video_fid
+            vi = {"video_id":v.video_id,"video_name":v.video_name,\
+                "video_desc":v.video_desc,"video_addr": "http://" + addr, "video_like": v.video_like}
+            vs.append(vi)
+        return jsonify({"code":200, "videos": vs})
 
     if request.method == "POST":
         tags = request.form_list["tag"]
