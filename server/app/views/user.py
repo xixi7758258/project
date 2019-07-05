@@ -16,7 +16,7 @@ def like():
         if not user_name:
             return jsonify({"code":500, "message": "user_id is empty"})
         
-        user = User.query.filter(User.user_name=user_name).first()
+        user = User.query.filter_by(user_name=user_name).first()
         if not user:
             return jsonify({"code":500, "message": "no user"})
 
