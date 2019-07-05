@@ -47,17 +47,17 @@ class User(db.Model):
     #用户ID，唯一主键
     user_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     #姓名
-    user_name = db.Column(db.String(20))
+    user_name = db.Column(db.String(64))
     #等级/类型
     user_level = db.Column(db.Integer,db.ForeignKey('level.level_id'))
     #过期时间
     user_expired = db.Column(db.DateTime)
     #支付宝号
-    user_ali = db.Column(db.String(20))
+    user_ali = db.Column(db.String(24))
     #微信号
-    user_wx = db.Column(db.String(20))
+    user_wx = db.Column(db.String(24))
     #银行卡号
-    user_bank = db.Column(db.String(20))
+    user_bank = db.Column(db.String(24))
     #创建于video的关联
     videos = db.relationship('Video',backref='user',secondary=like)
 
