@@ -10,9 +10,14 @@ user_blueprint = Blueprint("user", __name__)
 def like():
 
     if request.method == "GET":
+
         user_name = request.args.get("user_name")
         if not user_name:
             return jsonify({"code":500, "message": "user_id is empty"})
+        
+        user = User.query.filter_by(user_name=user_name).first()
+        if not user:
+            return jsonify({"code":500, "message": "no user"})
         
         user = User.query.filter_by(user_name=user_name).first()
         if not user:
