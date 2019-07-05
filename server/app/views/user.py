@@ -9,11 +9,11 @@ user_blueprint = Blueprint("user", __name__)
 def like():
 
     if request.method == "GET":
-        user_id = request.form["user_id"]
+        user_id = request.form["user_name"]
         if not user_id:
             return jsonify({"code":500, "message": "user_id is empty"})
         
-        user = User.query.filter_by(user_id=user_id).first()
+        user = User.query.filter_by(user_name=user_name).first()
         vs = user.video
         likes = []
 
@@ -62,7 +62,7 @@ def like():
 def user():
 
     if request.method == "GET":
-        user_name = request.form["user_name"]
+        user_name = request.args.get("user_name")
         if not user_name:
             return jsonify({"code":500, "message": "user_name is empty"})
         #查询用户，并获取level_id
@@ -81,9 +81,8 @@ def user():
         #用户没有level,就返回空值
         else:
             user_map = {"user_name":user.user_name,"user_level":"","level_name":"","level_time":""}
-            l.append(user_map)
 
-        return jsonify({"code":200, "user_info": l})
+        return jsonify({"code":200, "user_info": user_map})
     
     elif request.method == "POST":
         user = User()
@@ -93,7 +92,7 @@ def user():
         db.session.commit()
         #新建用户,直接返回空的level信息
         user_map = {"user_name":user.user_name,"user_level":"","level_name":"","level_time":""}
-        return jsonify({"code":200, "user_info": [user_map]})
+        return jsonify({"code":200, "user_info": user_map})
 
     else:
         return  jsonify({"code": 500, "message": "method is not support"})
