@@ -1,5 +1,6 @@
 from flask import Blueprint,request,jsonify
-from app.modle.modle import db,User,Video
+from app.modle.modle import db,User,Video,Level
+import uuid
 
 user_blueprint = Blueprint("user", __name__)
 
@@ -53,5 +54,44 @@ def like():
 
         return jsonify({"code":200, "message": "ok"})
     
+    else:
+        return  jsonify({"code": 500, "message": "method is not support"})
+
+
+@user_blueprint.route("/", methods=["GET","POST","DELETE"])
+def user():
+
+    if request.method == "GET":
+        user_name = request.form["user_name"]
+        if not user_name:
+            return jsonify({"code":500, "message": "user_name is empty"})
+        #查询用户，并获取level_id
+        user = User.query.filter(User.user_name==user_name).first()
+        user_level_id = user.user_level
+
+        l = []
+        #用户存在level_id就查询level_name,level_time
+        if user_level_id:
+            level = Level.query.filter(Level.level_id==user_level_id).first()
+            levle_time =  level.level_time
+            user_map = {"user_name":user.user_name,"user_level":user_level_id,"level_name":level.level_name,"level_time":levle_time}
+            l.append(user_map)      
+        #用户没有level,就返回空值
+        else:
+            user_map = {"user_name":user.user_name,"user_level":"","level_name":"","level_time":""}
+            l.append(user_map)
+
+        return jsonify({"code":200, "user_info": l})
+    
+    elif request.method == "POST":
+        user = User()
+        user.user_name = uuid.uuid1()
+        
+        db.session.add(user)
+        db.session.commit()
+        #新建用户,直接返回空的level信息
+        user_map = {"user_name":user.user_name,"user_level":"","level_name":"","level_time":""}
+        return jsonify({"code":200, "user_info": [user_map]})
+
     else:
         return  jsonify({"code": 500, "message": "method is not support"})
