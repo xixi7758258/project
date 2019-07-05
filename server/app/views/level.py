@@ -18,7 +18,7 @@ def level():
     if request.method == "POST":
         
         level_name = request.form["level_name"]
-        level_price = request.form["level_prive"]
+        level_price = request.form["level_price"]
         level_time = request.form["level_time"]
         
         l = Level()
@@ -34,6 +34,9 @@ def level():
     if request.method == "PUT":
         level_id = request.form["level_id"]
         level = Level.query.filter(Level.level_id == level_id).first()
+        if not level:
+            return jsonify({"code": 500, "message": "no level"})
+        
         if level.level_active:
             level.level_active = False
         else:
