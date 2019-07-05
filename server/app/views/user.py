@@ -2,6 +2,7 @@ from flask import Blueprint,request,jsonify
 from app.modle.modle import db,User,Video,Level
 from app.confs.config import Config
 import uuid
+from app.utils.time_help import expire
 
 user_blueprint = Blueprint("user", __name__)
 
@@ -93,8 +94,8 @@ def user():
         #用户存在level_id就查询level_name,level_time
         if user_level_id:
             level = Level.query.filter(Level.level_id==user_level_id).first()
-            levle_time =  level.level_time
-            user_map = {"user_name":user.user_name,"user_level":user_level_id,"level_name":level.level_name,"level_time":levle_time}
+            behind_days = expire(user.expire_time)
+            user_map = {"user_name":user.user_name,"user_level":user_level_id,"level_name":level.level_name,"level_time":behind_days}
             l.append(user_map)      
         #用户没有level,就返回空值
         else:
