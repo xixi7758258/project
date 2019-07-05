@@ -44,7 +44,6 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
-        
         user.videos.append(v)
 
         #将tag_like值+1
@@ -72,7 +71,6 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
-
         user.videos.remove(v)
         
         #将tag_like值-1
