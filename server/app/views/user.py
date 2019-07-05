@@ -44,9 +44,13 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
-
-        # if v not in uesr.videos:
-        user.videos.append(v)
+        
+        #判断视频是不是在用户喜欢里面
+        if v not in user.videos:
+            user.videos.append(v)
+        else:
+            return jsonify({"code": 500, "message": "user had liked the video before"})
+        
         #将video_like值+1
         if v.video_like :
             v.video_like += 1
@@ -78,8 +82,12 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
+        
+        #判断视频是不是在用户喜欢里面
         if v in user.videos:
             user.videos.remove(v)
+        else:
+            return jsonify({"code": 500, "message": "user didnt like the video before"})
         
         #将video_like值-1
         if v.video_like :
