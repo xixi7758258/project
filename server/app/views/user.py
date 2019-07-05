@@ -16,11 +16,7 @@ def like():
         if not user_name:
             return jsonify({"code":500, "message": "user_id is empty"})
         
-        user = User.query.filter_by(user_name=user_name).first()
-        if not user:
-            return jsonify({"code":500, "message": "no user"})
-        
-        user = User.query.filter_by(user_name=user_name).first()
+        user = User.query.filter(User.user_name=user_name).first()
         if not user:
             return jsonify({"code":500, "message": "no user"})
 
@@ -58,7 +54,7 @@ def like():
     #用户讲视频从喜欢表中删除
     elif request.method == "DELETE":
         user_name = request.form["user_name"]
-        print(user_name)
+        #print(user_name)
         video_id = request.form["video_id"]
         if not user_name or not video_id:
             return jsonify({"code":500, "message": "user_name or video_id is empty"})
@@ -94,7 +90,7 @@ def user():
         #用户存在level_id就查询level_name,level_time
         if user_level_id:
             level = Level.query.filter(Level.level_id==user_level_id).first()
-            behind_days = expire(user.expire_time)
+            behind_days = expire(user.user_expired)
             user_map = {"user_name":user.user_name,"user_level":user_level_id,"level_name":level.level_name,"level_time":behind_days}
             l.append(user_map)      
         #用户没有level,就返回空值
