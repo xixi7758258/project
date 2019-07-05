@@ -18,7 +18,7 @@ def like():
 
         for v in vs:
             v_map = {"video_id":v.video_id,"video_name":v.video_name,"video_addr":v.video_addr}
-            videos.append(v_map)
+            likes.append(v_map)
 
         return jsonify({"code": 200, "likes": likes})
 
