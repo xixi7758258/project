@@ -45,8 +45,8 @@ def like():
         if not v:
             return jsonify({"code":500, "message": "no video"})
 
-        if v not in uesr.videos:
-            user.videos.append(v)
+        # if v not in uesr.videos:
+        user.videos.append(v)
         #将video_like值+1
         if v.video_like :
             v.video_like += 1
