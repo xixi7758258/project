@@ -44,8 +44,9 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
-    
-        user.videos.append(v)
+
+        if v not in uesr.videos:
+            user.videos.append(v)
         #将video_like值+1
         if v.video_like :
             v.video_like += 1
@@ -77,7 +78,8 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
-        user.videos.remove(v)
+        if v in user.videos:
+            user.videos.remove(v)
         
         #将video_like值-1
         if v.video_like :
