@@ -67,6 +67,8 @@ def user():
             return jsonify({"code":500, "message": "user_name is empty"})
         #查询用户，并获取level_id
         user = User.query.filter(User.user_name==user_name).first()
+        if not user:
+            return jsonify({"code":500, "message": "no user"})
         user_level_id = user.user_level
 
         l = []

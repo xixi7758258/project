@@ -18,7 +18,7 @@ def video():
                 ti = {"tag_id": tag.tag_id, "tag_name": tag.tag_name}
                 tis.append(ti)
             vi = {"video_id":v.video_id,"video_name":v.video_name,\
-                "video_desc":v.video_desc,"video_addr": addr, "video_like": v.video_like, "tags":tis}
+                "video_desc":v.video_desc,"video_addr": "http://" + addr, "video_like": v.video_like, "tags":tis}
             vis.append(vi)
 
         return jsonify({"code": 200, "videos": vis})
