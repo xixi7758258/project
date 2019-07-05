@@ -44,9 +44,16 @@ def like():
         v = Video.query.filter_by(video_id=video_id).first()
         if not v:
             return jsonify({"code":500, "message": "no video"})
-
+        
         user.videos.append(v)
-        db.session.add(user)
+
+        #将tag_like值+1
+        tags = v.tags
+        for tag in tags:
+            if tag.tag_like:
+                tag.tag_like += 1
+            else:
+                tag.tag_like = 1
         db.session.commit()
 
         return jsonify({"code":200, "message": "ok"})
@@ -67,7 +74,16 @@ def like():
             return jsonify({"code":500, "message": "no video"})
 
         user.videos.remove(v)
+        
+        #将tag_like值-1
+        tags = v.tags
+        for tag in tags:
+            if tag.tag_like:
+                tag.tag_like -= 1
+            else:
+                tag.tag_like = 0
         db.session.commit()
+
         return jsonify({"code":200, "message": "ok"})
     else:
         return  jsonify({"code": 500, "message": "method is not support"})
