@@ -141,10 +141,10 @@ def search():
             vi = {"video_id":v.video_id,"video_name":v.video_name,\
                 "video_desc":v.video_desc,"video_addr": "http://" + addr, "video_like": v.video_like}
             vs.append(vi)
+            
         return jsonify({"code":200, "videos": vs})
 
     if request.method == "POST":
-        tags = request.form_list["tag"]
         pass
 
     if request.method == "PUT":

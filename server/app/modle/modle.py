@@ -29,7 +29,7 @@ class Video(db.Model):
     video_addr = db.Column(db.String(128))
     video_fid = db.Column(db.String(24))
     #喜欢
-    video_like = db.Column(db.Integer)
+    video_like = db.Column(db.Integer,default=0)
     #视频时长
     video_ltime = db.Column(db.Integer)
     #创建时间
@@ -67,7 +67,7 @@ class Tag(db.Model):
     #名字
     tag_name = db.Column(db.String(20))
     #喜欢
-    tag_like = db.Column(db.Integer)
+    tag_like = db.Column(db.Integer,default=0)
     #封面
     tag_img = db.Column(db.Integer)
     #创建video的关联

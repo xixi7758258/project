@@ -51,21 +51,15 @@ def like():
         else:
             return jsonify({"code": 500, "message": "user had liked the video before"})
         
-        #将video_like值+1
-        if v.video_like :
-            v.video_like += 1
-        else:
-            v.video_like = 1
-
+        
+        v.video_like += 1
+        
         #将tag_like值+1
         tags = v.tags
         for tag in tags:
-            if tag.tag_like:
-                tag.tag_like += 1
-            else:
-                tag.tag_like = 1
-        db.session.commit()
+            tag.tag_like += 1
 
+        db.session.commit()
         return jsonify({"code":200, "message": "ok"})
 
     #用户讲视频从喜欢表中删除
@@ -89,19 +83,13 @@ def like():
         else:
             return jsonify({"code": 500, "message": "user didnt like the video before"})
         
-        #将video_like值-1
-        if v.video_like :
-            v.video_like -= 1
-        else:
-            v.video_like = 0
+        v.video_like -= 1
 
         #将tag_like值-1
         tags = v.tags
         for tag in tags:
-            if tag.tag_like:
-                tag.tag_like -= 1
-            else:
-                tag.tag_like = 0
+            tag.tag_like -= 1
+           
         db.session.commit()
 
         return jsonify({"code":200, "message": "ok"})
