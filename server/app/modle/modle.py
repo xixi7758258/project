@@ -117,23 +117,6 @@ class Order(db.Model):
     # level名,与level表关联
     levelname = db.relationship('Level')
 
-    def info(self):
-
-        '''返回订单信息'''
-
-        create_time = self.create_time
-        if self.create_time:
-            create_time = datetime.datetime.strftime(create_time, "%Y-%m-%-d %H:%M:%S")
-        pay_time = self.pay_time
-        if self.pay_time:
-            pay_time = datetime.datetime.strftime(pay_time, "%Y-%m-%-d %H:%M:%S")
-
-        ord_map = {
-            "order_index": self.order_index, "order_time": create_time, "pay_time": pay_time,
-            "order_number": self.order_number, "user": self.username.user_name, "level": self.levelname.level_name
-        }
-        return ord_map
-
 
 class Level(db.Model):
     # 等级ID，唯一主键
@@ -154,7 +137,7 @@ class Actor(db.Model):
     # 演员名字
     actor_name = db.Column(db.String(24))
     # 喜欢
-    actor_like = video_ltime = db.Column(db.Integer)
+    actor_like = db.Column(db.Integer)
     # 封面图片地址
     actor_img = db.Column(db.String(128))
     # 简介

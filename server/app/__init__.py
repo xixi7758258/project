@@ -30,6 +30,10 @@ def create_app(config_object):
     from app.views.user import user_blueprint
     from app.views.video import video_blueprint
     from app.views.test import test_blueprint
+    from app.views.actor import actor_blueprint
+    from app.views.like import like_blueprint
+    from app.views.search import search_blueprint
+    from app.views.tag import tag_blueprint
 
     app.register_blueprint(ad_blueprint,url_prefix='/ad')
     app.register_blueprint(level_blueprint,url_prefix='/level')
@@ -38,6 +42,10 @@ def create_app(config_object):
     app.register_blueprint(user_blueprint,url_prefix='/user')
     app.register_blueprint(video_blueprint,url_prefix='/video')
     app.register_blueprint(test_blueprint,url_prefix='/test')
+    app.register_blueprint(actor_blueprint,url_prefix='/actor')
+    app.register_blueprint(like_blueprint,url_prefix='/like')
+    app.register_blueprint(search_blueprint,url_prefix='/search')
+    app.register_blueprint(tag_blueprint,url_prefix='/tag')
 
     return app
     
