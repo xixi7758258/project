@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 db = SQLAlchemy()
 
@@ -93,11 +94,11 @@ class Order(db.Model):
     #外键等级
     level = db.Column(db.Integer,db.ForeignKey('level.level_id'))
     #流水号
-    order_index = db.Column(db.String(128))
+    order_index = db.Column(db.String(64))
     #创建时间
-    order_ctime = db.Column(db.DateTime)
-    #时间
-    order_ftime = db.Column(db.DateTime)
+    order_time = db.Column(db.DateTime,default=datetime.datetime.now)
+    #支付时间
+    pay_ftime = db.Column(db.DateTime)
     #数量
     order_number = db.Column(db.Integer)
 
