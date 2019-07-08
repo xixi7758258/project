@@ -98,7 +98,7 @@ class Order(db.Model):
     #创建时间
     order_time = db.Column(db.DateTime,default=datetime.datetime.now)
     #支付时间
-    pay_ftime = db.Column(db.DateTime)
+    pay_time = db.Column(db.DateTime)
     #数量
     order_number = db.Column(db.Integer)
 
