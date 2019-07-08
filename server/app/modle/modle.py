@@ -1,5 +1,6 @@
-from flask_sqlalchemy import SQLAlchemy
 import datetime
+
+from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
@@ -21,6 +22,10 @@ video_tag = db.Table(
 class Video(db.Model):
     # 视频ID，唯一主键
     video_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # 演员
+    video_actor = db.Column(db.Integer, db.ForeignKey('actor.actor_id'))
+    # 番号
+    video_idx = db.Column(db.Integer)
     # 名称
     video_name = db.Column(db.String(128))
     # 封面图片地址
@@ -29,6 +34,7 @@ class Video(db.Model):
     video_desc = db.Column(db.String(128))
     # 地址
     video_addr = db.Column(db.String(128))
+    # 密匙
     video_fid = db.Column(db.String(24))
     # 喜欢
     video_like = db.Column(db.Integer, default=0)
@@ -42,6 +48,8 @@ class Video(db.Model):
     users = db.relationship('User', backref='video', secondary=like)
     # 创建video与tag的关联
     tags = db.relationship('Tag', backref='tag', secondary=video_tag)
+    # 创建video与actor的关联
+    actors = db.relationship('Actor', backref='video')
 
 
 class User(db.Model):
@@ -110,6 +118,9 @@ class Order(db.Model):
     levelname = db.relationship('Level')
 
     def info(self):
+
+        '''返回订单信息'''
+
         create_time = self.create_time
         if self.create_time:
             create_time = datetime.datetime.strftime(create_time, "%Y-%m-%-d %H:%M:%S")
@@ -128,10 +139,27 @@ class Level(db.Model):
     # 等级ID，唯一主键
     level_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # 等级名称
-    level_name = db.Column(db.String(20))
+    level_name = db.Column(db.String(12))
     # 价格
     level_price = db.Column(db.Integer)
     # 有效时间
     level_time = db.Column(db.Integer)
     # 激活
     level_active = db.Column(db.Boolean, default=True)
+
+
+class Actor(db.Model):
+    # 演员ID，唯一主键
+    actor_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # 演员名字
+    actor_name = db.Column(db.String(24))
+    # 喜欢
+    actor_like = video_ltime = db.Column(db.Integer)
+    # 封面图片地址
+    actor_img = db.Column(db.String(128))
+    # 简介
+    actor_desc = db.Column(db.String(128))
+    # 地址
+    actor_addr = db.Column(db.String(24))
+    # 密匙
+    actor_fid = db.Column(db.String(24))
