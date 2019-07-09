@@ -25,7 +25,7 @@ class Video(db.Model):
     # 演员
     video_actor = db.Column(db.Integer, db.ForeignKey('actor.actor_id'))
     # 番号
-    video_idx = db.Column(db.Integer)
+    video_idx = db.Column(db.String(64))
     # 名称
     video_name = db.Column(db.String(128))
     # 封面图片地址
