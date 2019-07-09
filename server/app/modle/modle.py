@@ -2,6 +2,8 @@ import datetime
 
 from flask_sqlalchemy import SQLAlchemy
 
+from app.utils.addr_help import Get_network_address
+
 db = SQLAlchemy()
 
 # 创建中间表用户与喜好关联
@@ -52,6 +54,26 @@ class Video(db.Model):
     tags = db.relationship('Tag', backref='tag', secondary=video_tag)
     # 创建video与actor的关联
     actors = db.relationship('Actor', backref='video')
+
+    def video_info(self):
+        return {
+            "video_id": self.video_id,
+            "video_idx": self.video_idx,
+            "video_addr": Get_network_address(self.video_add, self.video_fid),
+            "video_name": self.video_name,
+            "video_like": self.video_like,
+            "video_view": self.video_view,
+            "video_actors": self.actors.actor_name,
+        }
+
+    def video_cover_list(self):
+        return {
+            "video_id": self.video_id,
+            "video_img": Get_network_address(self.video_img_adr, self.video_img_fid),
+            "video_name": self.video_name,
+            "video_like": self.video_like,
+            "video_view": self.video_view,
+        }
 
 
 class User(db.Model):
