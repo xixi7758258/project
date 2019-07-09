@@ -51,7 +51,7 @@ class Video(db.Model):
     # 创建于用户的关联
     users = db.relationship('User', backref='video', secondary=like)
     # 创建video与tag的关联
-    tags = db.relationship('Tag', backref='tag', secondary=video_tag)
+    tags = db.relationship('Tag', backref='video', secondary=video_tag)
     # 创建video与actor的关联
     actors = db.relationship('Actor', backref='video')
 
@@ -91,8 +91,10 @@ class User(db.Model):
     user_wx = db.Column(db.String(24))
     # 银行卡号
     user_bank = db.Column(db.String(24))
-    # 创建于video的关联
+    # 创建与video表的关联
     videos = db.relationship('Video', backref='user', secondary=like)
+    # 创建与level表的关联
+    level = db.relationship('Level', backref='user')
 
 
 class Tag(db.Model):
@@ -141,6 +143,24 @@ class Order(db.Model):
     # level名,与level表关联
     levelname = db.relationship('Level')
 
+    def order_info(self):
+        create_time = self.create_time
+        if create_time:
+            create_time = datetime.datetime.strftime(create_time, "%Y-%m-%-d %H:%M:%S")
+
+        pay_time = self.pay_time
+        if pay_time:
+            pay_time = datetime.datetime.strftime(pay_time, "%Y-%m-%-d %H:%M:%S")
+
+        return {
+            "order_index": self.order_index,
+            "create_time": create_time,
+            "pay_time": pay_time,
+            "order_number": self.order_number,
+            "user": self.username.user_name,
+            "level": self.levelname.level_name
+        }
+
 
 class Level(db.Model):
     # 等级ID，唯一主键
@@ -153,6 +173,15 @@ class Level(db.Model):
     level_time = db.Column(db.Integer)
     # 激活
     level_active = db.Column(db.Boolean, default=False)
+
+    def level_info(self):
+        return {
+            "level_id": self.level_id,
+            "level_name": self.level_name,
+            "level_price": self.level_price,
+            "level_time": self.level_time,
+            "level_active": self.level_active
+        }
 
 
 class Actor(db.Model):
