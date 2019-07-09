@@ -25,15 +25,15 @@ class Video(db.Model):
     # 演员
     video_actor = db.Column(db.Integer, db.ForeignKey('actor.actor_id'))
     # 番号
-    video_idx = db.Column(db.Integer)
+    video_idx = db.Column(db.String(24))
     # 名称
-    video_name = db.Column(db.String(128))
+    video_name = db.Column(db.String(24))
     # 封面图片地址
-    video_img = db.Column(db.String(128))
+    video_img = db.Column(db.String(24))
     # 简介
-    video_desc = db.Column(db.String(128))
+    video_desc = db.Column(db.String(64))
     # 地址
-    video_addr = db.Column(db.String(128))
+    video_addr = db.Column(db.String(24))
     # 密匙
     video_fid = db.Column(db.String(24))
     # 喜欢
@@ -75,7 +75,7 @@ class Tag(db.Model):
     # 标签名，唯一主键
     tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     # 名字
-    tag_name = db.Column(db.String(20))
+    tag_name = db.Column(db.String(12))
     # 喜欢
     tag_like = db.Column(db.Integer, default=0)
     # 封面
@@ -92,7 +92,7 @@ class Ad(db.Model):
     # 广告链接
     ad_link = db.Column(db.String(128))
     # 激活状态
-    ad_active = db.Column(db.Boolean, default=True)
+    ad_active = db.Column(db.Boolean, default=False)
     # 位置
     ad_seat = db.Column(db.Integer)
 
@@ -128,7 +128,7 @@ class Level(db.Model):
     # 有效时间
     level_time = db.Column(db.Integer)
     # 激活
-    level_active = db.Column(db.Boolean, default=True)
+    level_active = db.Column(db.Boolean, default=False)
 
 
 class Actor(db.Model):
@@ -139,7 +139,7 @@ class Actor(db.Model):
     # 喜欢
     actor_like = db.Column(db.Integer)
     # 封面图片地址
-    actor_img = db.Column(db.String(128))
+    actor_img = db.Column(db.String(24))
     # 简介
     actor_desc = db.Column(db.String(128))
     # 地址

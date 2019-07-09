@@ -19,33 +19,21 @@ def create_app(config_object):
     from app.modle.modle import db
     db.init_app(app)
 
-    # from app.views.admin import admin
-    # admin.init_app(app)
-
     # register views def.
-    from app.views.ad import ad_blueprint
-    from app.views.level import level_blueprint
-    from app.views.order import order_blueprint
-    from app.views.pay import pay_blueprint
-    from app.views.user import user_blueprint
-    from app.views.video import video_blueprint
-    from app.views.test import test_blueprint
-    from app.views.actor import actor_blueprint
-    from app.views.like import like_blueprint
-    from app.views.search import search_blueprint
-    from app.views.tag import tag_blueprint
+    from app.views import ad, pay, tag, actor, level, order, user, video, like, search, test
 
-    app.register_blueprint(ad_blueprint,url_prefix='/ad')
-    app.register_blueprint(level_blueprint,url_prefix='/level')
-    app.register_blueprint(order_blueprint,url_prefix='/order')
-    app.register_blueprint(pay_blueprint,url_prefix='/pay')
-    app.register_blueprint(user_blueprint,url_prefix='/user')
-    app.register_blueprint(video_blueprint,url_prefix='/video')
-    app.register_blueprint(test_blueprint,url_prefix='/test')
-    app.register_blueprint(actor_blueprint,url_prefix='/actor')
-    app.register_blueprint(like_blueprint,url_prefix='/like')
-    app.register_blueprint(search_blueprint,url_prefix='/search')
-    app.register_blueprint(tag_blueprint,url_prefix='/tag')
+    app.register_blueprint(ad.ad_blueprint,url_prefix='/ad')
+    app.register_blueprint(pay.pay_blueprint,url_prefix='/pay')
+    app.register_blueprint(tag.tag_blueprint,url_prefix='/tag')
+    app.register_blueprint(user.user_blueprint,url_prefix='/user')
+    app.register_blueprint(like.like_blueprint,url_prefix='/like')
+    app.register_blueprint(actor.actor_blueprint,url_prefix='/actor')
+    app.register_blueprint(order.order_blueprint,url_prefix='/order')
+    app.register_blueprint(level.level_blueprint,url_prefix='/level')
+    app.register_blueprint(video.video_blueprint,url_prefix='/video')
+    app.register_blueprint(search.search_blueprint,url_prefix='/search')
+    
+    app.register_blueprint(test.test_blueprint,url_prefix='/test')
 
     return app
     
