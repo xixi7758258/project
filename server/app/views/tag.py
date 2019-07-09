@@ -1,11 +1,11 @@
-from flask import Blueprint
+from flask import Blueprint ,request, jsonify
 
 tag_blueprint = Blueprint("tag", __name__)
 
 
-# video crud.
+# tag crud.
 @tag_blueprint.route("/", methods=["GET", "POST", "PUT", "DELETE"])
-
+def tag():
     if request.method == "GET":
         
         return

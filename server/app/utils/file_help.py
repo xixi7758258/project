@@ -11,7 +11,6 @@ def ObtainFileStorageAddr(file_url):
 
 def UploadFile(file_storage_url, fid, file_name, file):
     url = "http://" + file_storage_url + "/" + fid
-    print("url", url)
     files = {file_name: file}
     rsp = requests.post(url=url, files=files)
     return rsp.status_code
