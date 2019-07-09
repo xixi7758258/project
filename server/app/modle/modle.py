@@ -29,7 +29,9 @@ class Video(db.Model):
     # 名称
     video_name = db.Column(db.String(24))
     # 封面图片地址
-    video_img = db.Column(db.String(24))
+    video_img_adr = db.Column(db.String(24))
+    # 封面图片密钥
+    video_img_fid = db.Column(db.String(24))
     # 简介
     video_desc = db.Column(db.String(64))
     # 地址
@@ -38,8 +40,8 @@ class Video(db.Model):
     video_fid = db.Column(db.String(24))
     # 喜欢
     video_like = db.Column(db.Integer, default=0)
-    # 视频时长
-    video_ltime = db.Column(db.Integer)
+    # 视频观看
+    video_view = db.Column(db.Integer)
     # 创建时间
     video_ctime = db.Column(db.DateTime)
     # 激活状态

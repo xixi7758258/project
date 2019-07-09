@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from app.modle.modle import Video
-
+from app.utils.addr_help import Get_network_address
 
 video_blueprint = Blueprint("video", __name__)
 
@@ -10,7 +10,7 @@ video_blueprint = Blueprint("video", __name__)
 @video_blueprint.route("/", methods=["GET", "POST", "PUT", "DELETE"])
 def video():
     if request.method == "GET":
-        
+
         # 获取单个视频地址.
         video_id = request.args_get("video_id")
         if video_id:
@@ -23,7 +23,11 @@ def video():
         video_info_list = []
         for video in videos:
             video_info = {
-
+                "video_id": video.video_id,
+                "video_img": Get_network_address(video.video_img_adr, video.video_img_fid),
+                "video_name": video.video_name,
+                "video_like": video.video_like,
+                "video_view": video.video_view,
             }
             video_info_list.append(video_info)
 
