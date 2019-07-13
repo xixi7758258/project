@@ -64,6 +64,7 @@ class Video(db.Model):
             "video_like": self.video_like,
             "video_view": self.video_view,
             "video_actors": self.actors.actor_name,
+            "video_ative": self.video_ative,
         }
 
     def video_cover_list(self):
@@ -190,7 +191,7 @@ class Actor(db.Model):
     # 演员名字
     actor_name = db.Column(db.String(24))
     # 喜欢
-    actor_like = db.Column(db.Integer)
+    actor_like = db.Column(db.Integer, default=0)
     # 封面图片地址
     actor_img = db.Column(db.String(24))
     # 简介
@@ -199,3 +200,17 @@ class Actor(db.Model):
     actor_addr = db.Column(db.String(24))
     # 密匙
     actor_fid = db.Column(db.String(24))
+
+    def actor_info(self):
+        return {
+           "actor_id" : self.actor_id,
+           "actor_name": self.actor_name,
+           "actor_like": self.actor_like,
+           "actor_img": Get_network_address(self.actor_addr, self.actor_fid),
+        }
+    
+    def actor_simple_info(self):
+        return {
+           "actor_id" : self.actor_id,
+           "actor_name": self.actor_name,
+        }
